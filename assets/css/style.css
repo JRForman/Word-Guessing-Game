@@ -1,0 +1,41 @@
+.container  {
+    max-width: 960px;
+    width:80%;
+    border: solid 1px black;
+    height: 95vh;
+    margin:auto;
+    background-image: url("../images/connectwork.png");
+    color:white;
+
+}
+.banner{
+    margin:auto;
+    width:600px;
+    max-width: 100%;
+    position: relative;
+    text-align: center;
+}
+img.bannerpic{
+    max-width: 100%;
+}
+#bannertext {
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -0%);
+    color: #ffffff;
+    background-color:#000000;
+    font-size:3vw;
+    width:90%;
+}
+.scoreBoard{
+    border:solid 3px white;
+    width:150px;
+    height:150px;
+    float:left;
+    padding:5px;
+    margin:10px;
+}
+#message{
+    text-align: center;
+}
