@@ -20,8 +20,21 @@ var guesses = [];
 var guessesRight = [];
 var guessesRemaining = 6;
 var lastWin = false;
+var wordArray = [];
+var wordArrayToString = "";
 
-// hint(wordSelection);
+for (var x in wordSelection) {
+    //HANDLE SPACES
+    if (wordSelection[x] == " ") {
+        wordArray.push({ l: wordSelection[x], tf: true })
+    } else {
+        wordArray.push({ l: wordSelection[x], tf: false })
+    }
+}
+
+
+
+
 document.onkeyup = function (event) {
     //GAME OVER IF GUESSES REMAINING ARE 0, SEND MESSAGE TO USER TO START ANOTHER GAME
     if (guessesRemaining == 0) {
@@ -30,7 +43,7 @@ document.onkeyup = function (event) {
 
 
     }
-    lastWin = false;
+
 
 
     var key = event.key;
@@ -51,12 +64,31 @@ document.onkeyup = function (event) {
 
         //TEST TO SEE IF LETTER IS IN WORD 
         if ((wordSelection.includes(key)) && guessesRight.includes(key) == false) {
-            console.log(key + " is in " + wordSelection);
+
             guessesRight = guessesRight + key;
 
             //UPDATE WORD BOARD
+            for (x = 0; x < wordArray.length; x++) {
+                if (wordArray[x].l == key) {
+                    wordArray[x].tf = true;
 
-            
+                }
+
+            }
+            wordArrayToString = "";
+            for (var i = 0; i < wordArray.length; i++) {
+                //HANDLE SPACES
+                if (wordArray[i].l == " ") {
+                    wordArrayToString = wordArrayToString + "&emsp;"
+                } else {
+                    if (wordArray[i].tf == true) {
+                        wordArrayToString = wordArrayToString + wordArray[i].l
+                    } else {
+                        wordArrayToString = wordArrayToString + " _ "
+                    }
+                }
+            }
+            document.getElementById("wordBoard").innerHTML = wordArrayToString;
 
             //DON'T DO ANYTHING IF THE LETTER HAS ALREADY BEEN PREVIOUSLY GUESSED RIGHT
         } else if (guessesRight.includes(key)) {
@@ -70,6 +102,16 @@ document.onkeyup = function (event) {
             //UPADATE LETTER BOARD
             document.getElementById("guessesRemaining").innerHTML = guessesRemaining + " Guesses Remaining";
         }
+    }
+    //TEST TO SEE IF GAME WON
+
+    if (winCheck(wordArray)) {
+        document.getElementById("wordBoard").innerHTML = "You Won!!!";
+        document.getElementById("message").innerHTML = "Please press '2' to start another game.";
+        wins++;
+        document.getElementById("wins").innerHTML = "Wins: " + wins;
+        lastWin = true;
+
     }
 }
 
@@ -89,7 +131,7 @@ function newGame() {
     //RANDOMIZE GETTING A WORD, NEEDS TO BE ARRAY.LENGTH, SETTLED FOR HARD NUMBER OF ARRAY LENGTH.
     var movieSelection = Math.floor(Math.random() * Math.floor(10));
     var categorySelection = Math.floor(Math.random() * Math.floor(3));
-    var wordSelection;
+    wordSelection;
     if (categorySelection == 0) {
         wordSelection = wordList[movieSelection].movie;
         document.getElementById("category").innerHTML = "Category: Movie";
@@ -103,7 +145,7 @@ function newGame() {
     console.log(wordSelection);
 
     //CREATE WORD BOARD FOR WORD SELECTION
-    var wordArray = [];
+    wordArray = [];
     for (var x in wordSelection) {
         //HANDLE SPACES
         if (wordSelection[x] == " ") {
@@ -112,8 +154,9 @@ function newGame() {
             wordArray.push({ l: wordSelection[x], tf: false })
         }
     }
-    console.log(wordArray);
-    var wordArrayToString = "";
+
+
+    wordArrayToString = "";
     for (var i = 0; i < wordArray.length; i++) {
         //HANDLE SPACES
         if (wordArray[i].l == " ") {
@@ -140,6 +183,8 @@ function newGame() {
     document.getElementById("hints").innerHTML = "If you would like some hints, please press '1'";
 
     //RETURN WORDSELECTION TO BE USED IN OTHER PARTS OF THE GAME
+    lastWin = false;
+
     return wordSelection;
 }
 
@@ -161,4 +206,14 @@ function hint(wordSelection) {
         }
 
     }
+}
+
+function winCheck() {
+
+    for (x = 0; x < wordArray.length; x++) {
+        if (wordArray[x].tf == false) {
+            return false;
+        }
+    }
+    return true;
 }
