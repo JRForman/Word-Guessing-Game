@@ -56,3 +56,11 @@ img.bannerpic{
     margin:10px;
     font-size: 150%;
 }
+#poster{
+    position: absolute;
+    left: 200px;
+    top: 20px;
+    z-index: 99;
+    border:solid 3px red;
+    visibility: hidden;
+}

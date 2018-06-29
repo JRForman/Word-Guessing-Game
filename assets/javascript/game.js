@@ -1,20 +1,21 @@
 //ARRAY FOR WORD LIST
 var wordList = [
-    { movie: "COMMANDO", character: "JOHN MATRIX", coStar: "ALYSSA MILANO" },
-    { movie: "TERMINATOR", character: "TERMINATOR", coStar: "LINDA HAMILTON" },
-    { movie: "TWINS", character: "JULIUS BENEDICT", coStar: "DANNY DEVITO" },
-    { movie: "CONAN THE BARBARIAN", character: "CONAN", coStar: "JAMES EARL JONES" },
-    { movie: "TOTAL RECALL", character: "DOUGLAS QUAID", coStar: "SHARON STONE" },
-    { movie: "PREDATOR", character: "DUTCH", coStar: "JESSE VENTURA" },
-    { movie: "RUNNING MAN", character: "BEN RICHARDS", coStar: "JESSE VENTURA" },
-    { movie: "KINDERGARTEN COP", character: "KIMBLE", coStar: "LINDA HUNT" },
-    { movie: "TRUE LIES", character: "HARRY TASKER", coStar: "JAIME LEE CURTIS" },
-    { movie: "LAST ACTION HERO", character: "JACK SLATER", coStar: "CHARLES DANCE" },
+    { movie: "COMMANDO", character: "JOHN MATRIX", coStar: "ALYSSA MILANO", image:"assets/images/commando.jpg" },
+    { movie: "TERMINATOR", character: "TERMINATOR", coStar: "LINDA HAMILTON", image:"assets/images/terminator.jpg" },
+    { movie: "TWINS", character: "JULIUS BENEDICT", coStar: "DANNY DEVITO", image:"assets/images/twins.jpg"  },
+    { movie: "CONAN THE BARBARIAN", character: "CONAN", coStar: "JAMES EARL JONES", image:"assets/images/conan.jpg"  },
+    { movie: "TOTAL RECALL", character: "DOUGLAS QUAID", coStar: "SHARON STONE", image:"assets/images/totalrecall.jpg"  },
+    { movie: "PREDATOR", character: "DUTCH", coStar: "JESSE VENTURA", image: "assets/images/predator.jpg"  },
+    { movie: "RUNNING MAN", character: "BEN RICHARDS", coStar: "JESSE VENTURA", image:"assets/images/runningman.jpg"  },
+    { movie: "KINDERGARTEN COP", character: "KIMBLE", coStar: "LINDA HUNT", image:"assets/images/cop.jpg"  },
+    { movie: "TRUE LIES", character: "HARRY TASKER", coStar: "JAIME LEE CURTIS", image:"assets/images/truelies.jpg"  },
+    { movie: "LAST ACTION HERO", character: "JACK SLATER", coStar: "CHARLES DANCE", image:"assets/images/lastactionhero.jpg"  },
 ]
 
 //STARTING VARIABLES
 var wins = 0;
 var losses = 0;
+var movieSelection;
 var wordSelection = newGame();
 var guesses = [];
 var guessesRight = [];
@@ -111,12 +112,17 @@ document.onkeyup = function (event) {
         wins++;
         document.getElementById("wins").innerHTML = "Wins: " + wins;
         lastWin = true;
+ 
+      
+        document.getElementById("poster").src = wordList[movieSelection].image
+        document.getElementById("poster").style.visibility = "visible";
 
     }
 }
 
 function newGame() {
     //UPDATE SCORE BOARD ON LOSS, PREVENTS USER FROM JUST STARTING A NEW GAME TO GET AROUND LOSS.
+    document.getElementById("poster").style.visibility = "hidden";
     if (lastWin == false) {
         losses++;
         document.getElementById("losses").innerHTML = "Losses: " + losses;
@@ -129,7 +135,7 @@ function newGame() {
     guessesRemaining = 6;
 
     //RANDOMIZE GETTING A WORD, NEEDS TO BE ARRAY.LENGTH, SETTLED FOR HARD NUMBER OF ARRAY LENGTH.
-    var movieSelection = Math.floor(Math.random() * Math.floor(10));
+  movieSelection = Math.floor(Math.random() * Math.floor(10));
     var categorySelection = Math.floor(Math.random() * Math.floor(3));
     wordSelection;
     if (categorySelection == 0) {
@@ -213,6 +219,7 @@ function winCheck() {
     for (x = 0; x < wordArray.length; x++) {
         if (wordArray[x].tf == false) {
             return false;
+
         }
     }
     return true;
