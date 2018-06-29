@@ -1,15 +1,15 @@
 //ARRAY FOR WORD LIST
 var wordList = [
-    { movie: "COMMANDO", character: "JOHN MATRIX", coStar: "ALYSSA MILANO", image:"assets/images/commando.jpg" },
-    { movie: "TERMINATOR", character: "TERMINATOR", coStar: "LINDA HAMILTON", image:"assets/images/terminator.jpg" },
-    { movie: "TWINS", character: "JULIUS BENEDICT", coStar: "DANNY DEVITO", image:"assets/images/twins.jpg"  },
-    { movie: "CONAN THE BARBARIAN", character: "CONAN", coStar: "JAMES EARL JONES", image:"assets/images/conan.jpg"  },
-    { movie: "TOTAL RECALL", character: "DOUGLAS QUAID", coStar: "SHARON STONE", image:"assets/images/totalrecall.jpg"  },
-    { movie: "PREDATOR", character: "DUTCH", coStar: "JESSE VENTURA", image: "assets/images/predator.jpg"  },
-    { movie: "RUNNING MAN", character: "BEN RICHARDS", coStar: "JESSE VENTURA", image:"assets/images/runningman.jpg"  },
-    { movie: "KINDERGARTEN COP", character: "KIMBLE", coStar: "LINDA HUNT", image:"assets/images/cop.jpg"  },
-    { movie: "TRUE LIES", character: "HARRY TASKER", coStar: "JAIME LEE CURTIS", image:"assets/images/truelies.jpg"  },
-    { movie: "LAST ACTION HERO", character: "JACK SLATER", coStar: "CHARLES DANCE", image:"assets/images/lastactionhero.jpg"  },
+    { movie: "COMMANDO", character: "JOHN MATRIX", coStar: "ALYSSA MILANO", image:"assets/images/commando.jpg", mp3:"assets/audio/commando.mp3" },
+    { movie: "TERMINATOR", character: "TERMINATOR", coStar: "LINDA HAMILTON", image:"assets/images/terminator.jpg", mp3:"assets/audio/terminator.mp3" },
+    { movie: "TWINS", character: "JULIUS BENEDICT", coStar: "DANNY DEVITO", image:"assets/images/twins.jpg", mp3:"assets/audio/twins.mp3"  },
+    { movie: "CONAN THE BARBARIAN", character: "CONAN", coStar: "JAMES EARL JONES", image:"assets/images/conan.jpg", mp3:"assets/audio/conan.mp3"  },
+    { movie: "TOTAL RECALL", character: "DOUGLAS QUAID", coStar: "SHARON STONE", image:"assets/images/totalrecall.jpg", mp3:"assets/audio/totalrecall.mp3"  },
+    { movie: "PREDATOR", character: "DUTCH", coStar: "JESSE VENTURA", image: "assets/images/predator.jpg", mp3:"assets/audio/predator.mp3"  },
+    { movie: "RUNNING MAN", character: "BEN RICHARDS", coStar: "JESSE VENTURA", image:"assets/images/runningman.jpg", mp3:"assets/audio/runningman.mp3"  },
+    { movie: "KINDERGARTEN COP", character: "KIMBLE", coStar: "LINDA HUNT", image:"assets/images/cop.jpg", mp3:"assets/audio/cop.mp3"  },
+    { movie: "TRUE LIES", character: "HARRY TASKER", coStar: "JAIME LEE CURTIS", image:"assets/images/truelies.jpg", mp3:"assets/audio/truelies.mp3"  },
+    { movie: "LAST ACTION HERO", character: "JACK SLATER", coStar: "CHARLES DANCE", image:"assets/images/lastactionhero.jpg", mp3:"assets/audio/lastactionhero.mp3"  },
 ]
 
 //STARTING VARIABLES
@@ -41,6 +41,9 @@ document.onkeyup = function (event) {
     if (guessesRemaining == 0) {
         document.getElementById("wordBoard").innerHTML = "Game Over";
         document.getElementById("message").innerHTML = "Please press '2' to start another game.";
+        document.getElementById("lost").play();
+
+
 
 
     }
@@ -112,10 +115,12 @@ document.onkeyup = function (event) {
         wins++;
         document.getElementById("wins").innerHTML = "Wins: " + wins;
         lastWin = true;
- 
+        
       
         document.getElementById("poster").src = wordList[movieSelection].image
         document.getElementById("poster").style.visibility = "visible";
+        document.getElementById("win").src = wordList[movieSelection].mp3
+        document.getElementById("win").play();
 
     }
 }
@@ -126,7 +131,7 @@ function newGame() {
     if (lastWin == false) {
         losses++;
         document.getElementById("losses").innerHTML = "Losses: " + losses;
-        //ADD LOST SOUND HERE
+    
 
     }
     //ZERO OUT PREVIOUS GUESSES
